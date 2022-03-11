@@ -21,22 +21,31 @@ namespace EmployeeWage
         }
         public static string Attendance(int empCheck)
         {
-            if (empCheck == IsFullTime)
-                return "Present and Full Time";
-            else if (empCheck == IsPartTime)
-                return "Present but Part Time";
-            else
-                return "Absent";
+            switch (empCheck)
+            {
+                case IsFullTime:
+                    return "Present and Full Time";
+                case IsPartTime:
+                    return "Present but Part Time";
+                default:
+                    return "Absent";
+            }
         }
         public static int DailyEmpWage(int empCheck)
         {
             int empHrs;
-            if (empCheck == IsFullTime)
-                empHrs = FullTimeHr;
-            else if (empCheck == IsPartTime)
-                empHrs = PartTimeHr;
-            else
-                empHrs = 0;
+            switch (empCheck)
+            {
+                case IsFullTime: 
+                    empHrs = FullTimeHr;
+                    break;
+                case IsPartTime: 
+                    empHrs = PartTimeHr;
+                    break;
+                default:
+                    empHrs = 0;
+                    break;
+            }
             int empWage = empHrs * Employee.WagePerHr;
             return empWage;
         }
