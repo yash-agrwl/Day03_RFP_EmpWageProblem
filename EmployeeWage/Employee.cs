@@ -14,7 +14,11 @@ namespace EmployeeWage
         const int WagePerHr = 20;
         const int FullTimeHr = 8;
         const int PartTimeHr = 4;
-        const int NumWorkingDays = 20;
+        const int MaxWorkDays = 20;
+        const int MaxEmpHrs = 100;
+
+        public static int TotalEmpHrs = 0;
+        public static int TotalWorkDays = 0;
         public static int Check()
         {
             Random random = new Random();
@@ -22,8 +26,8 @@ namespace EmployeeWage
         }
         public static int CalculateEmpWage()
         {
-            int empHrs, TotalEmpHrs = 0;
-            for (int day = 1; day <= NumWorkingDays; day++)
+            int empHrs;
+            while (TotalWorkDays < MaxWorkDays && TotalEmpHrs < MaxEmpHrs)
             {
                 int empCheck = Employee.Check();
                 switch (empCheck)
@@ -39,8 +43,8 @@ namespace EmployeeWage
                         break;
                 }
                 TotalEmpHrs += empHrs;
+                TotalWorkDays++;
             }
-            
             int empWage = TotalEmpHrs * Employee.WagePerHr;
             return empWage;
         }
