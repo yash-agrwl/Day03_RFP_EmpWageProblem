@@ -8,19 +8,31 @@ namespace EmployeeWage
 {
     internal class Employee
     {
-        public const int Is_Absent = 0;
+        const int IsAbsent = 0;
+        const int IsFullTime = 1;
+        const int WagePerHr = 20;
+        const int FullTimeHr = 8;
         public static int Check()
         {
             Random random = new Random();
-            return random.Next(0, 3);
+            return random.Next(0, 2);
         }
-        public static string Attendance()
+        public static string Attendance(int empCheck)
         {
-            int empCheck = Employee.Check();
-            if (empCheck == Is_Absent)
+            if (empCheck == IsAbsent)
                 return "Absent";
             else
-                return "Present";           
+                return "Present";          
+        }
+        public static int DailyEmpWage(int empCheck)
+        {
+            int empHrs;
+            if (empCheck == IsFullTime)
+                empHrs = FullTimeHr;
+            else
+                empHrs = 0;
+            int empWage = empHrs * Employee.WagePerHr;
+            return empWage;
         }
     }
 }
