@@ -8,19 +8,19 @@ namespace EmployeeWage
 {
     internal class Employee
     {
-        const int Is_Present = 1;
+        public const int Is_Absent = 0;
         public static int Check()
         {
             Random random = new Random();
-            return random.Next(0, 2);
+            return random.Next(0, 3);
         }
-        public static void Attendance()
+        public static string Attendance()
         {
             int empCheck = Employee.Check();
-            if (empCheck == Is_Present)
-                Console.WriteLine("Employee is Present");
+            if (empCheck == Is_Absent)
+                return "Absent";
             else
-                Console.WriteLine("Employee is Absent");
+                return "Present";           
         }
     }
 }
