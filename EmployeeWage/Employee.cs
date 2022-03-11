@@ -14,39 +14,34 @@ namespace EmployeeWage
         const int WagePerHr = 20;
         const int FullTimeHr = 8;
         const int PartTimeHr = 4;
+        const int NumWorkingDays = 20;
         public static int Check()
         {
             Random random = new Random();
             return random.Next(0, 3);
         }
-        public static string Attendance(int empCheck)
+        public static int CalculateEmpWage()
         {
-            switch (empCheck)
+            int empHrs, TotalEmpHrs = 0;
+            for (int day = 1; day <= NumWorkingDays; day++)
             {
-                case IsFullTime:
-                    return "Present and Full Time";
-                case IsPartTime:
-                    return "Present but Part Time";
-                default:
-                    return "Absent";
+                int empCheck = Employee.Check();
+                switch (empCheck)
+                {
+                    case IsFullTime:
+                        empHrs = FullTimeHr;
+                        break;
+                    case IsPartTime:
+                        empHrs = PartTimeHr;
+                        break;
+                    default:
+                        empHrs = 0;
+                        break;
+                }
+                TotalEmpHrs += empHrs;
             }
-        }
-        public static int DailyEmpWage(int empCheck)
-        {
-            int empHrs;
-            switch (empCheck)
-            {
-                case IsFullTime: 
-                    empHrs = FullTimeHr;
-                    break;
-                case IsPartTime: 
-                    empHrs = PartTimeHr;
-                    break;
-                default:
-                    empHrs = 0;
-                    break;
-            }
-            int empWage = empHrs * Employee.WagePerHr;
+            
+            int empWage = TotalEmpHrs * Employee.WagePerHr;
             return empWage;
         }
     }
