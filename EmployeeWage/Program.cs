@@ -8,8 +8,8 @@ namespace EmployeeWage
         {
             Console.WriteLine("Welcome to Employee Wage Computation Program.\n");
 
-            Employee.CalculateEmpWage();
-
+            Employee.CalculateEmpWage("DMart",20,5,30);
+            Employee.CalculateEmpWage("Reliance",10,4,20);
         }
     }
 }
