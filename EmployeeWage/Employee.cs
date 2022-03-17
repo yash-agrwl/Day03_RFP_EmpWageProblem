@@ -8,24 +8,36 @@ namespace EmployeeWage
 {
     internal class Employee
     {
-        const int IsAbsent = 0;
+
         const int IsFullTime = 1;
         const int IsPartTime = 2;
         const int FullTimeHr = 8;
         const int PartTimeHr = 4;
+
+        string Company;
+        int EmpRatePerHr, NumOfWorkDays, MaxHrsPerMonth, TotalEmpWage;
+
+        public Employee(string company, int empRatePerHr, int numOfWorkDays, int maxHrsPerMonth)
+        {
+            this.Company = company;
+            this.EmpRatePerHr = empRatePerHr;
+            this.NumOfWorkDays = numOfWorkDays;
+            this.MaxHrsPerMonth = maxHrsPerMonth;
+        }
 
         public static int Check()
         {
             Random random = new Random();
             return random.Next(0, 3);
         }
-        public static void CalculateEmpWage(string company, int empRatePerHr, int numOfWorkDays, int maxHrsPerMonth)
+
+        public void CalculateEmpWage()
         {
             int empHrs=0, totalEmpHrs=0, totalWorkDays=0;
 
-            Console.WriteLine($"Details of an Employee working in {company} are:");
+            Console.WriteLine($"\nDetails of an Employee working in {this.Company} are:");
 
-            while (totalWorkDays < numOfWorkDays && totalEmpHrs < maxHrsPerMonth)
+            while (totalWorkDays < this.NumOfWorkDays && totalEmpHrs < this.MaxHrsPerMonth)
             {
                 int empCheck = Employee.Check();
                 switch (empCheck)
@@ -44,9 +56,12 @@ namespace EmployeeWage
                 totalWorkDays++;
                 Console.WriteLine("Day#:" + totalWorkDays + " Emp Hrs: " + empHrs);
             }
-            int empWage = totalEmpHrs * empRatePerHr;
+            this.TotalEmpWage = totalEmpHrs * this.EmpRatePerHr;
+        }
 
-            Console.WriteLine($"Total Employee Wage for company {company} is: " + empWage + "\n");
+        public void DisplayEmpWage()
+        {
+            Console.WriteLine($"Total Employee Wage for company {this.Company} is: " + this.TotalEmpWage);
         }
     }
 }

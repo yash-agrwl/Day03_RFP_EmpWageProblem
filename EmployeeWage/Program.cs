@@ -6,10 +6,18 @@ namespace EmployeeWage
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Employee Wage Computation Program.\n");
+            Console.WriteLine("Welcome to Employee Wage Computation Program.");
 
-            Employee.CalculateEmpWage("DMart",20,5,30);
-            Employee.CalculateEmpWage("Reliance",10,4,20);
+            Employee Dmart = new Employee("DMart",20,5,30);
+            Employee Reliance = new Employee("Reliance",10,4,20);
+
+            Dmart.CalculateEmpWage();
+            Reliance.CalculateEmpWage();
+
+            Console.WriteLine();
+
+            Dmart.DisplayEmpWage();         
+            Reliance.DisplayEmpWage();
         }
     }
 }
