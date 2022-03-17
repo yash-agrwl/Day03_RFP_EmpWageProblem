@@ -17,17 +17,15 @@ namespace EmployeeWage
         const int MaxWorkDays = 20;
         const int MaxEmpHrs = 100;
 
-        public static int TotalEmpHrs = 0;
-        public static int TotalWorkDays = 0;
         public static int Check()
         {
             Random random = new Random();
             return random.Next(0, 3);
         }
-        public static int CalculateEmpWage()
+        public static void CalculateEmpWage()
         {
-            int empHrs;
-            while (TotalWorkDays < MaxWorkDays && TotalEmpHrs < MaxEmpHrs)
+            int empHrs=0, totalEmpHrs=0, totalWorkDays=0;
+            while (totalWorkDays < MaxWorkDays && totalEmpHrs < MaxEmpHrs)
             {
                 int empCheck = Employee.Check();
                 switch (empCheck)
@@ -42,11 +40,14 @@ namespace EmployeeWage
                         empHrs = 0;
                         break;
                 }
-                TotalEmpHrs += empHrs;
-                TotalWorkDays++;
+                totalEmpHrs += empHrs;
+                totalWorkDays++;
             }
-            int empWage = TotalEmpHrs * Employee.WagePerHr;
-            return empWage;
+            int empWage = totalEmpHrs * Employee.WagePerHr;
+
+            Console.WriteLine("Total working Day is: " + totalWorkDays);
+            Console.WriteLine("Total Working Hours is: " + totalEmpHrs + "\n");
+            Console.WriteLine("And the Employee Wage for the month is: " + empWage + "\n");
         }
     }
 }
