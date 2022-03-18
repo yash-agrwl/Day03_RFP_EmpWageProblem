@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeWage
 {
-    internal class Employee
+    internal class Employee : IComputeEmpWage
     {
 
         const int IsFullTime = 1;
@@ -14,30 +14,42 @@ namespace EmployeeWage
         const int FullTimeHr = 8;
         const int PartTimeHr = 4;
 
-        string Company;
-        int EmpRatePerHr, NumOfWorkDays, MaxHrsPerMonth, TotalEmpWage;
+        private int NumOfCompany=0;
+        private readonly CompanyEmpWage[] CompanyEmpWageArray;
 
-        public Employee(string company, int empRatePerHr, int numOfWorkDays, int maxHrsPerMonth)
+        public Employee()
         {
-            this.Company = company;
-            this.EmpRatePerHr = empRatePerHr;
-            this.NumOfWorkDays = numOfWorkDays;
-            this.MaxHrsPerMonth = maxHrsPerMonth;
+            this.CompanyEmpWageArray = new CompanyEmpWage[5];
+        }
+
+        public void AddCompanyEmpWage(string company, int empRatePerHr, int numOfWorkDays, int maxHrsPerMonth)
+        {
+            CompanyEmpWageArray[this.NumOfCompany] = new CompanyEmpWage(company, empRatePerHr, numOfWorkDays, maxHrsPerMonth);
+            NumOfCompany++;
         }
 
         public static int Check()
         {
-            Random random = new Random();
+            Random random = new();
             return random.Next(0, 3);
         }
 
         public void CalculateEmpWage()
         {
-            int empHrs=0, totalEmpHrs=0, totalWorkDays=0;
+            for(int i = 0; i < NumOfCompany; i++)
+            {
+                CalculateEmpWage(this.CompanyEmpWageArray[i]);
+                this.CompanyEmpWageArray[i].DisplayEmpWage();
+            }
+        }
 
-            Console.WriteLine($"\nDetails of an Employee working in {this.Company} are:");
+        private static void CalculateEmpWage(CompanyEmpWage companyEmpWage)
+        {
+            int empHrs, totalEmpHrs=0, totalWorkDays=0;
 
-            while (totalWorkDays < this.NumOfWorkDays && totalEmpHrs < this.MaxHrsPerMonth)
+            Console.WriteLine($"\nDetails of an Employee working in {companyEmpWage.Company} are:");
+
+            while (totalWorkDays < companyEmpWage.NumOfWorkDays && totalEmpHrs < companyEmpWage.MaxHrsPerMonth)
             {
                 int empCheck = Employee.Check();
                 switch (empCheck)
@@ -56,12 +68,7 @@ namespace EmployeeWage
                 totalWorkDays++;
                 Console.WriteLine("Day#:" + totalWorkDays + " Emp Hrs: " + empHrs);
             }
-            this.TotalEmpWage = totalEmpHrs * this.EmpRatePerHr;
-        }
-
-        public void DisplayEmpWage()
-        {
-            Console.WriteLine($"Total Employee Wage for company {this.Company} is: " + this.TotalEmpWage);
+            companyEmpWage.TotalEmpWage = totalEmpHrs * companyEmpWage.EmpRatePerHr;
         }
     }
 }

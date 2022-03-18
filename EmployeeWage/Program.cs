@@ -8,16 +8,12 @@ namespace EmployeeWage
         {
             Console.WriteLine("Welcome to Employee Wage Computation Program.");
 
-            Employee Dmart = new Employee("DMart",20,5,30);
-            Employee Reliance = new Employee("Reliance",10,4,20);
+            Employee manager = new();
 
-            Dmart.CalculateEmpWage();
-            Reliance.CalculateEmpWage();
+            manager.AddCompanyEmpWage("DMart",20,5,30);
+            manager.AddCompanyEmpWage("Reliance",10,4,20);
 
-            Console.WriteLine();
-
-            Dmart.DisplayEmpWage();         
-            Reliance.DisplayEmpWage();
+            manager.CalculateEmpWage();
         }
     }
 }
